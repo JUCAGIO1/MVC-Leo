@@ -1,0 +1,48 @@
+<h1>Gerenciamento de Categorias</h1>
+
+<p>
+    <a href="/produtos">← Voltar para Produtos</a> | 
+    <a href="/categorias/nova">+ Nova Categoria</a>
+</p>
+
+<h3>Cadastrar Nova Categoria</h3>
+<form action="/categorias" method="POST" style="margin-bottom: 20px;">
+    <label>Nome da Categoria:</label>
+    <input type="text" name="nome" placeholder="Ex: Informática, Áudio..." required>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<hr>
+
+<h3>Categorias Cadastradas</h3>
+
+<% if (categorias.length === 0) { %>
+    <p>Nenhuma categoria cadastrada até o momento.</p>
+<% } else { %>
+    <table border="1" cellpadding="6">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Qtd. Produtos</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% categorias.forEach(c => { %>
+                <tr>
+                    <td><%= c.id %></td>
+                    <td><strong><%= c.nome %></strong></td>
+                    <td><%= c.Produtos ? c.Produtos.length : 0 %></td>
+                    <td>
+                        <a href="/produtos/categoria/<%= c.id %>">Ver produtos</a>
+                        &nbsp;|&nbsp;
+                        <form action="/categorias/<%= c.id %>/deletar" method="POST" style="display:inline;" onsubmit="return confirm('Deseja realmente excluir esta categoria?');">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+<% } %>

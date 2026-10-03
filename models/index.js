@@ -6,6 +6,17 @@ const sequelize = new Sequelize({
   logging: false
 });
 
+// Model Categoria (Desafio 1)
+const Categoria = sequelize.define('Categoria', {
+  nome: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  tableName: 'Categorias'
+});
+
+// Model Produto
 const Produto = sequelize.define('Produto', {
   nome: {
     type: DataTypes.STRING,
@@ -21,9 +32,16 @@ const Produto = sequelize.define('Produto', {
     type: DataTypes.INTEGER,
     defaultValue: 0
   }
+}, {
+  tableName: 'Produtos'
 });
+
+// Relacionamentos 1:N entre Categoria e Produto (Desafio 1)
+Categoria.hasMany(Produto, { foreignKey: 'CategoriaId', as: 'Produtos' });
+Produto.belongsTo(Categoria, { foreignKey: 'CategoriaId', as: 'Categoria' });
 
 module.exports = {
   sequelize,
-  Produto
+  Produto,
+  Categoria
 };

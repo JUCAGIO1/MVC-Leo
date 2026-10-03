@@ -7,9 +7,10 @@
         type="text"
         name="nome"
         value="<%= produto.nome %>"
+        required
     >
 
-    <br>
+    <br><br>
 
     <label>Preço:</label>
     <input
@@ -17,21 +18,40 @@
         name="preco"
         step="0.01"
         value="<%= produto.preco %>"
+        required
     >
 
-    <br>
+    <br><br>
 
     <label>Quantidade:</label>
     <input
         type="number"
         name="quantidade"
         value="<%= produto.quantidade %>"
+        required
     >
 
-    <br>
+    <br><br>
+
+    <!-- Seleção de Categoria (Desafio 1) -->
+    <label>Categoria:</label>
+    <select name="CategoriaId">
+        <option value="">-- Sem Categoria --</option>
+        <% if (typeof categorias !== 'undefined') { %>
+            <% categorias.forEach(c => { %>
+                <option value="<%= c.id %>" <%= produto.CategoriaId === c.id ? 'selected' : '' %>>
+                    <%= c.nome %>
+                </option>
+            <% }) %>
+        <% } %>
+    </select>
+    <small><a href="/categorias/nova" target="_blank">+ Criar nova categoria</a></small>
+
+    <br><br>
 
     <button type="submit">
         Atualizar
     </button>
+    <a href="/produtos">Cancelar</a>
 
 </form>

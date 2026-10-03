@@ -1,18 +1,19 @@
-<h1>Produtos</h1>
+<h1>Produtos — Categoria: <%= categoria.nome %></h1>
 
 <p>
+    <a href="/produtos">← Todos os produtos</a> | 
     <a href="/produtos/novo">Novo produto</a> | 
     <a href="/categorias">Gerenciar Categorias</a>
 </p>
 
-<!-- Filtro por Categoria (Desafio 2) -->
+<!-- Seletor rápido de categorias (Desafio 2) -->
 <div style="margin: 15px 0;">
-    <label><strong>Filtrar por Categoria:</strong></label>
+    <label><strong>Trocar categoria:</strong></label>
     <select onchange="if (this.value) { window.location.href = '/produtos/categoria/' + this.value; } else { window.location.href = '/produtos'; }">
         <option value="">Todas as categorias</option>
         <% if (typeof categorias !== 'undefined') { %>
             <% categorias.forEach(c => { %>
-                <option value="<%= c.id %>"><%= c.nome %></option>
+                <option value="<%= c.id %>" <%= c.id === categoria.id ? 'selected' : '' %>><%= c.nome %></option>
             <% }) %>
         <% } %>
     </select>
@@ -29,7 +30,7 @@
 
     <% if (produtos.length === 0) { %>
         <tr>
-            <td colspan="5" align="center">Nenhum produto cadastrado.</td>
+            <td colspan="5" align="center">Nenhum produto cadastrado nesta categoria.</td>
         </tr>
     <% } %>
 
@@ -39,13 +40,7 @@
             <td><%= p.nome %></td>
             <td>R$ <%= Number(p.preco).toFixed(2) %></td>
             <td><%= p.quantidade %></td>
-            <td>
-                <% if (p.Categoria) { %>
-                    <a href="/produtos/categoria/<%= p.Categoria.id %>"><%= p.Categoria.nome %></a>
-                <% } else { %>
-                    <em>Sem categoria</em>
-                <% } %>
-            </td>
+            <td><%= categoria.nome %></td>
 
             <td>
                 <a href="/produtos/<%= p.id %>/editar">
