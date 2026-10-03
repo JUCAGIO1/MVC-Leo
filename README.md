@@ -6,7 +6,7 @@ Aplicação web desenvolvida com **Node.js**, **Express**, **EJS**, **Sequelize*
 
 ## 👤 Integrante
 - **Nome:** Giovanni Corrêa Amadio
-- **RM:** (Preencha seu RM)
+- **RM:** (20240050)
 
 ---
 
